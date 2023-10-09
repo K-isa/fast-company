@@ -7,7 +7,6 @@ import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
 import UserTable from "./usersTable";
 import _ from "lodash";
-import NavBar from "./navBar";
 
 const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -69,7 +68,6 @@ const Users = () => {
         };
 
         return <>
-            {/* <NavBar /> */}
             <div className="d-flex">
                 {professions && (
                     <div className="d-flex flex-column flex-shrink-0 p-3">

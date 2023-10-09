@@ -1,6 +1,7 @@
 import React from 'react';
 import User from './user';
 import TableHeader from './tableHeader';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const UserTable = ({users, onSort, selectedSort, ...rest}) => {
     const columns = {
