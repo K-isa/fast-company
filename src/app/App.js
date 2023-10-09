@@ -1,8 +1,8 @@
 import React from "react";
-import Users from "./components/users";
+import NavBar from "./components/navBar";
 
 function App() {
-    return <Users />;
+    return <NavBar />;
 }
 
 export default App;

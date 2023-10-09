@@ -7,6 +7,8 @@ import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
 import UserTable from "./usersTable";
 import _ from "lodash";
+import NavBar from "./navBar";
+
 const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfession] = useState();
@@ -53,10 +55,10 @@ const Users = () => {
     if (users) {
         const filteredUsers = selectedProf
             ? users.filter(
-                  (user) =>
-                      JSON.stringify(user.profession) ===
-                      JSON.stringify(selectedProf)
-              )
+                (user) =>
+                    JSON.stringify(user.profession) ===
+                    JSON.stringify(selectedProf)
+            )
             : users;
 
         const count = filteredUsers.length;
@@ -66,7 +68,8 @@ const Users = () => {
             setSelectedProf();
         };
 
-        return (
+        return <>
+            {/* <NavBar /> */}
             <div className="d-flex">
                 {professions && (
                     <div className="d-flex flex-column flex-shrink-0 p-3">
@@ -105,7 +108,7 @@ const Users = () => {
                     </div>
                 </div>
             </div>
-        );
+            </>;
     }
     return "loading...";
 };
