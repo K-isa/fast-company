@@ -1,5 +1,5 @@
 import React from 'react';
-import User from './user';
+import User from './page/userPage/userPage';
 import TableHeader from './tableHeader';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 

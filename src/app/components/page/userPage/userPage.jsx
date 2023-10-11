@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import api from "../api";
-import QualitiesList from "./qualitiesList";
+import api from "../../../api";
+import QualitiesList from "../../ui/qualities/qualitiesList";
 import { useHistory } from "react-router-dom";
 
-const User = ({ userId }) => {
+const UserPage = ({ userId }) => {
     const history = useHistory();
     const [user, setUser] = useState();
     useEffect(() => {
@@ -29,4 +29,4 @@ const User = ({ userId }) => {
 };
 
 
-export default User;
+export default UserPage;
