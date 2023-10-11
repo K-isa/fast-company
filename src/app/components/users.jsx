@@ -5,6 +5,7 @@ import Pagination from "./pagination";
 import api from "../api";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
+import SearchBar from "./SearchBar";
 import UserTable from "./usersTable";
 import _ from "lodash";
 
@@ -13,6 +14,7 @@ const Users = () => {
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
+    const [search, SetSearch] = useState('')
     const pageSize = 8;
 
     const [users, setUsers] = useState();
@@ -41,6 +43,7 @@ const Users = () => {
     }, [selectedProf]);
 
     const handleProfessionSelect = (item) => {
+        SetSearch('')
         setSelectedProf(item);
     };
 
@@ -51,8 +54,17 @@ const Users = () => {
         setSortBy(item);
     };
 
+    const handleSearch = ({target}) => {
+        setSelectedProf(undefined)
+        SetSearch(target.value)
+    }
+    
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = search ? 
+        users.filter(
+            (user) =>
+                user.name.toLowerCase().indexOf(search.toLowerCase())!==-1)
+        : selectedProf
             ? users.filter(
                 (user) =>
                     JSON.stringify(user.profession) ===
@@ -87,6 +99,10 @@ const Users = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <SearchBar 
+                    search={search}
+                    onChange={handleSearch} />
+                    
                     {count > 0 && (
                         <UserTable
                             users={usersCrop}
