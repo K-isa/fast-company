@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const SelectedField = ({ label, value, defaultOption, options, data, errors, onChange }) => {
+const SelectedField = ({ label, value, defaultOption, name, options, errors, onChange }) => {
+
+    const handleChange = ({target}) => {
+        onChange({name: target.name, value: target.value});
+    }
 
     const getInputClasses = () => {
         return 'form-select' + (errors ? " is-invalid" : "")
@@ -22,13 +26,12 @@ const SelectedField = ({ label, value, defaultOption, options, data, errors, onC
             id='validationCustom04'
             value={value}
             required
-            name='profession'
-            onChange={onChange}>
+            name={name}
+            onChange={handleChange}>
             <option disabled value=''>{defaultOption}</option>
             {optionsArray &&
                 optionsArray.map((option) => (
                     <option
-                        // selected={option.value = data.profession}
                         key={option.value}
                         value={option.value}>
                             {option.name}

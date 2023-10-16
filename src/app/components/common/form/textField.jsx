@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 const TextField = ({label, type, name, value, onChange, error}) => {
     const [showPassword, setShowPassword] = useState(false)
 
+    const handleChange = ({target}) => {
+        onChange({name: target.name, value: target.value});
+    }
+
     const toggleShowPassword = () => {
         setShowPassword((prevstate) => !prevstate)
     }
@@ -18,7 +22,7 @@ const TextField = ({label, type, name, value, onChange, error}) => {
         id={name} 
         name={name} 
         value={value} 
-        onChange={onChange} 
+        onChange={handleChange} 
         className={getInputClass()}
         />
         {type === 'password' && (<button 

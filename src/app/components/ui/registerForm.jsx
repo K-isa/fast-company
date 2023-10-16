@@ -4,18 +4,21 @@ import { validator } from "../../utils/validator";
 import SelectedField from '../common/form/selectedField';
 import api from '../../api';
 import RadioField from '../common/form/radioField';
+import MultiSelectedField from '../common/form/multiSelectedField';
 
 const RegisterForm = () => {
-    const [data, setData] = useState({ email: "", password: "", profession: "", sex: 'female' })
+    const [data, setData] = useState({ email: "", password: "", profession: "", sex: 'female', qualities: [] })
     const [errors, setErrors] = useState({})
     const [professions, setProfession] = useState();
+    const [qualities, setQualities] = useState({})
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfession(data));
+        api.qualities.fetchAll().then((data) => setQualities(data));
     }, []);
 
-    const handleChange = ({ target }) => {
-        setData((prevstate) => ({ ...prevstate, [target.name]: target.value }))
+    const handleChange = (target) => {
+        setData((prevState) => ({ ...prevState, [target.name]: target.value }))
     }
 
     const validatorConfig = {
@@ -62,8 +65,8 @@ const RegisterForm = () => {
 
         <h3 className='mb-4'>Регистрация</h3>
         <form onSubmit={handleSubmit}>
-            <TextField label={'Почта'} type={'text'} name={'email'} value={data.email} onChange={handleChange} error={errors.email} />
-            <TextField label={'Пароль'} type={'password'} name={'password'} value={data.password} onChange={handleChange} error={errors.password} />
+            <TextField label={'Почта'} type={'text'} name='email' value={data.email} onChange={handleChange} error={errors.email} />
+            <TextField label={'Пароль'} type={'password'} name='password' value={data.password} onChange={handleChange} error={errors.password} />
             <SelectedField
                 label="Выберите вашу профессию"
                 defaultOption='Choose...'
@@ -72,13 +75,21 @@ const RegisterForm = () => {
                 onChange={handleChange}
                 options={professions}
                 value={data.profession}
+                name='profession'
             />
             <RadioField options={[
                 {name:'male', value:'male'},
                 {name:'female', value:'female'},
                 {name:'other', value:'other'}
             ]} 
-            label={'Укажите Ваш пол:  '} name='sex' value={data.sex} onChange={handleChange}/>
+            label='Укажите Ваш пол:' name='sex' value={data.sex} onChange={handleChange}/>
+
+            <MultiSelectedField
+            options={qualities}
+            label='Укажите Ваши качества'
+            name='qualities'
+            onChange={handleChange}
+            />
             <button className='btn btn-primary w-100 mx-auto' type='submit' disabled={!isValid}>Submit</button>
         </form>
     </>
