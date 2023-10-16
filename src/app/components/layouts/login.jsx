@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import LoginForm from "../ui/loginForm";
 import RegisterForm from "../ui/registerForm";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
 
 const Login = () => {
     const {type} = useParams()
     const [FormType, setFormType] = useState(type==='register' ? type : 'login')
 
     const toggleFormType = () => {
-        setFormType((prevstate) => prevstate==='register' ? 'login' : 'register')
+        setFormType((prevstate) => prevstate==='login' ? 'register' : 'login')
     }
     
     return <>
