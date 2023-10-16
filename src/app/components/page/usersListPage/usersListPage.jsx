@@ -4,7 +4,7 @@ import Pagination from "../../common/pagination";
 import api from "../../../api";
 import GroupList from "../../common/groupList";
 import SearchStatus from "../../ui/searchStatus";
-import SearchBar from "../../SearchBar";
+import SearchBar from "../../searchBar";
 import UserTable from "../../ui/usersTable";
 import _ from "lodash";
 

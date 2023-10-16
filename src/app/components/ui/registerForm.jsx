@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
+import SelectedField from '../common/form/selectedField';
+import api from '../../api';
 
-const LoginForm = () => {
-    const [data, setData] = useState({ email: "", password: "" })
+const RegisterForm = () => {
+    const [data, setData] = useState({ email: "", password: "", profession: "" })
     const [errors, setErrors] = useState({})
+    const [professions, setProfession] = useState();
+
+    useEffect(() => {
+        api.professions.fetchAll().then((data) => setProfession(data));
+    }, []);
 
     const handleChange = ({ target }) => {
         setData((prevstate) => ({ ...prevstate, [target.name]: target.value }))
@@ -22,6 +29,11 @@ const LoginForm = () => {
         password: {
             isRequired: {
                 message: "Пароль обязателен для заполнения"
+            }
+        },
+        profession: {
+            isRequired: {
+                message: "Выберите профессию"
             }
         }
     }
@@ -47,14 +59,22 @@ const LoginForm = () => {
 
     return <>
 
-        <h3 className='mb-4'>Логин</h3>
+        <h3 className='mb-4'>Регистрация</h3>
         <form onSubmit={handleSubmit}>
             <TextField label={'Почта'} type={'text'} name={'email'} value={data.email} onChange={handleChange} error={errors.email} />
             <TextField label={'Пароль'} type={'password'} name={'password'} value={data.password} onChange={handleChange} error={errors.password} />
-
+            <SelectedField
+                label="Выберите вашу профессию"
+                defaultOption='Choose...'
+                data={data}
+                errors={errors.profession}
+                onChange={handleChange}
+                options={professions}
+                value={data.profession}
+            ></SelectedField>
             <button className='btn btn-primary w-100 mx-auto' type='submit' disabled={!isValid}>Submit</button>
         </form>
     </>
 };
 
-export default LoginForm;
+export default RegisterForm;
