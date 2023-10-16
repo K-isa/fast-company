@@ -5,9 +5,10 @@ import SelectedField from '../common/form/selectedField';
 import api from '../../api';
 import RadioField from '../common/form/radioField';
 import MultiSelectedField from '../common/form/multiSelectedField';
+import CheckBoxField from '../common/form/checkBoxField';
 
 const RegisterForm = () => {
-    const [data, setData] = useState({ email: "", password: "", profession: "", sex: 'female', qualities: [] })
+    const [data, setData] = useState({ email: "", password: "", profession: "", sex: 'female', qualities: [], licence: false })
     const [errors, setErrors] = useState({})
     const [professions, setProfession] = useState();
     const [qualities, setQualities] = useState({})
@@ -38,6 +39,11 @@ const RegisterForm = () => {
         profession: {
             isRequired: {
                 message: "Выберите профессию"
+            }
+        },
+        licence: {
+            isRequired: {
+                message: 'Вы не можете использовать наш сервис без лицензионного соглашения'
             }
         }
     }
@@ -90,6 +96,10 @@ const RegisterForm = () => {
             name='qualities'
             onChange={handleChange}
             />
+
+            <CheckBoxField value={data.licence} name='licence' onChange={handleChange} error={errors.licence}>
+                Подтвердить <a>лицензионное соглашение</a>
+            </CheckBoxField>
             <button className='btn btn-primary w-100 mx-auto' type='submit' disabled={!isValid}>Submit</button>
         </form>
     </>
