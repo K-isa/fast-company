@@ -13,7 +13,6 @@ const UserTable = ({users, onSort, selectedSort, ...rest}) => {
     bookmark: {iter: "bookmark", name: "Избранное"},
     delete:{}
     }
-
     
     return <table className="table">
 

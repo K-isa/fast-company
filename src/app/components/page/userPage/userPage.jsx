@@ -8,7 +8,7 @@ const UserPage = ({ userId }) => {
     const [user, setUser] = useState();
     useEffect(() => {
         api.users.getById(userId).then((data) => setUser(data));
-    });
+    }, []);
     const handleClick = () => {
         history.push("/users");
     };
@@ -20,7 +20,7 @@ const UserPage = ({ userId }) => {
                 <QualitiesList qualities={user.qualities} />
                 <p>completedMeetings: {user.completedMeetings}</p>
                 <h2>Rate: {user.rate}</h2>
-                <button onClick={handleClick}> Все Пользователи</button>
+                <button onClick={handleClick}> Изменить</button>
             </div>
         );
     } else {
