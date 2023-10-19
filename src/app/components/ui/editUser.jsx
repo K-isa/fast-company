@@ -5,6 +5,7 @@ import api from "../../api";
 import RadioField from '../common/form/radioField';
 import MultiSelectedField from '../common/form/multiSelectedField';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const EditUser = ({}) => {
     const [data, setData] = useState({
@@ -21,7 +22,8 @@ const EditUser = ({}) => {
     const [errors, setErrors] = useState({});
     const users = JSON.parse(localStorage.getItem("users"));
     const userIndex = users.findIndex((u) => u._id === userId);
-    const user = users[userIndex]
+    const user = users[userIndex];
+    const history = useHistory()
 
     const getProfessionById = (id) => {
         for (const prof of professions) {
@@ -74,6 +76,7 @@ const EditUser = ({}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const { profession, qualities } = data;
+        history.push(`/users/${userId}`)
         api.users.updateData(userId, data)
         console.log({
             ...data,
